@@ -2,8 +2,6 @@ package com.cisne.controller;
 
 import com.cisne.payload.branch.BranchRequest;
 import com.cisne.payload.branch.BranchResponse;
-import com.cisne.payload.branchProduct.BranchProductRequest;
-import com.cisne.payload.branchProduct.BranchProductResponse;
 import com.cisne.repository.BranchRepository;
 import com.cisne.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;

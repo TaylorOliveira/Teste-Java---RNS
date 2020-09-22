@@ -1,9 +1,6 @@
 package com.cisne.service;
 
-import com.cisne.model.Branch;
 import com.cisne.model.Product;
-import com.cisne.payload.branch.BranchRequest;
-import com.cisne.payload.branch.BranchResponse;
 import com.cisne.payload.product.ProductRequest;
 import com.cisne.payload.product.ProductResponse;
 import com.cisne.repository.ProductRepository;
