@@ -27,6 +27,12 @@ public class BranchController {
         return ResponseEntity.ok().body(branchResponse);
     }
 
+    @DeleteMapping("/branch/{id}")
+    public ResponseEntity<?> deleteBranch(@PathVariable("id") Long id) {
+        branchService.deleteBranch(id);
+        return ResponseEntity.ok().body("Deleted on success");
+    }
+
     @GetMapping("/listBranches")
     public List<BranchResponse> getAllAppointments() {
         return branchService.getAllBranches();

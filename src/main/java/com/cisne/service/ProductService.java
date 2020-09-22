@@ -1,5 +1,6 @@
 package com.cisne.service;
 
+import com.cisne.model.Branch;
 import com.cisne.model.Product;
 import com.cisne.payload.product.ProductRequest;
 import com.cisne.payload.product.ProductResponse;
@@ -26,6 +27,12 @@ public class ProductService {
         product.setStockQuantity(productRequest.getStockQuantity());
         productRepository.save(product);
         return new ProductResponse(product);
+    }
+
+    public void deleteProduct(Long id){
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException());
+        productRepository.delete(product);
     }
 
     public List<ProductResponse> getAllProducts(){

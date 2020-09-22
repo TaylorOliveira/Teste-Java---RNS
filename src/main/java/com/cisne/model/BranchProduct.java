@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import java.util.Date;
 
 @Entity
 @Table(name = "TB_BRANCH_PRODUCT")
@@ -33,4 +34,7 @@ public class BranchProduct {
 
     @Column(name = "QUANTITY")
     private Long quantity;
+
+    @Column(name = "TRANSFER_DATE")
+    private Date transferDate;
 }

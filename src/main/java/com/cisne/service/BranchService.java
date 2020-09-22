@@ -27,6 +27,12 @@ public class BranchService {
         return new BranchResponse(branch);
     }
 
+    public void deleteBranch(Long id){
+        Branch branch = branchRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException());
+        branchRepository.delete(branch);
+    }
+
     public List<BranchResponse> getAllBranches(){
         List<Branch> listBranches = branchRepository.findAll();
         List<BranchResponse> listBranchesResponse = new ArrayList<>();
