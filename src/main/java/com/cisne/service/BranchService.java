@@ -20,16 +20,21 @@ public class BranchService {
         this.branchRepository = branchRepository;
     }
 
+    public BranchResponse getBranchById(Long id){
+        Branch branch = branchRepository.getOne(id);
+        return new BranchResponse(branch);
+    }
+
     public BranchResponse createBranch(BranchRequest branchRequest){
         Branch branch = new Branch();
         branch.setName(branchRequest.getName());
+        branch.setCode(branchRequest.getCode());
         branchRepository.save(branch);
         return new BranchResponse(branch);
     }
 
     public void deleteBranch(Long id){
-        Branch branch = branchRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+        Branch branch = branchRepository.getOne(id);
         branchRepository.delete(branch);
     }
 
@@ -37,7 +42,7 @@ public class BranchService {
         List<Branch> listBranches = branchRepository.findAll();
         List<BranchResponse> listBranchesResponse = new ArrayList<>();
         for(Branch branch : listBranches){
-            listBranchesResponse.add(new BranchResponse(branch.getId(), branch.getName()));
+            listBranchesResponse.add(new BranchResponse(branch.getId(), branch.getName(), branch.getCode()));
         }
         return listBranchesResponse;
     }

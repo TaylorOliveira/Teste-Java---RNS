@@ -10,10 +10,13 @@ public class BranchResponse {
 
     private Long id;
 
+    private String code;
+
     private String name;
 
     public BranchResponse(Branch branch) {
         setId(branch.getId());
+        setCode(branch.getCode());
         setName(branch.getName());
     }
 }

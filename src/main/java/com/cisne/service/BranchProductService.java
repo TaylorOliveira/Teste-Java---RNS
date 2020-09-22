@@ -31,6 +31,11 @@ public class BranchProductService {
         this.branchRepository = branchRepository;
     }
 
+    public BranchProductResponse getBranchProductById(Long id){
+        BranchProduct branchProduct = branchProductRespository.getOne(id);
+        return new BranchProductResponse(branchProduct);
+    }
+
     public BranchProductResponse createBranchProduct(BranchProductRequest branchProductRequest){
 
         // Create entity branchProduct
@@ -63,9 +68,43 @@ public class BranchProductService {
         return new BranchProductResponse(branchProduct);
     }
 
+    public BranchProductResponse updateBranchProduct(BranchProductRequest branchProductRequest){
+
+        BranchProduct branchProduct = branchProductRespository.getOne(branchProductRequest.getId());
+
+        if(Objects.nonNull(branchProduct)){
+
+            // Get product before save and product contained in request
+            Product productBefore = branchProduct.getProduct();
+            Product productAfter = productRepository.getOne(branchProductRequest.getProductId());
+
+            Branch branch = branchRepository.getOne(branchProductRequest.getBranchId());
+
+            // Update stock quantity product before
+            productBefore.setStockQuantity(productBefore.getStockQuantity() + branchProduct.getQuantity());
+            // Update stock quantity product contained in request
+            productAfter.setStockQuantity(productAfter.getStockQuantity() - branchProductRequest.getQuantity());
+
+            branchProduct.setQuantity(branchProductRequest.getQuantity());
+
+            // Set entity product and branch in branchProduct
+            branchProduct.setProduct(productAfter);
+            branchProduct.setBranch(branch);
+
+            // Set transfer date
+            branchProduct.setTransferDate(branchProductRequest.getTransferDate());
+
+            productRepository.save(productBefore);
+            productRepository.save(productAfter);
+            branchProductRespository.save(branchProduct);
+        }else{
+            return null;
+        }
+        return new BranchProductResponse( branchProduct);
+    }
+
     public void deleteBranchProduct(Long id){
-        BranchProduct branchProduct = branchProductRespository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+        BranchProduct branchProduct = branchProductRespository.getOne(id);
         branchProductRespository.delete(branchProduct);
     }
 

@@ -23,4 +23,7 @@ public class Branch {
 
     @Column(name = "NAME")
     private String name;
+
+    @Column(name = "CODE")
+    private String code;
 }

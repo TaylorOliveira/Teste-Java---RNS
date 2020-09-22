@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,11 +23,25 @@ public class BranchProductController {
         this.branchProductService = branchProductService;
     }
 
+    @GetMapping("/branchProduct/{id}")
+    public BranchProductResponse getBranchProductById(@PathVariable("id") Long id) {
+        return branchProductService.getBranchProductById(id);
+    }
+
     @PostMapping("/branchProduct")
     public ResponseEntity<?> createBranchProduct(@Validated @RequestBody BranchProductRequest branchProductRequest) {
         BranchProductResponse branchProductResponse = branchProductService.createBranchProduct(branchProductRequest);
         if(Objects.isNull(branchProductResponse)){
             return ResponseEntity.badRequest().body("Error saving");
+        }
+        return ResponseEntity.ok().body(branchProductResponse);
+    }
+
+    @PutMapping("/branchProduct")
+    public ResponseEntity<?> updateBranchProduct(@Valid @RequestBody BranchProductRequest branchProductRequest){
+        BranchProductResponse branchProductResponse = branchProductService.updateBranchProduct(branchProductRequest);
+        if(Objects.isNull(branchProductResponse)){
+            return ResponseEntity.badRequest().body("Error update");
         }
         return ResponseEntity.ok().body(branchProductResponse);
     }

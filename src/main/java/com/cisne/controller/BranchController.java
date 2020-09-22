@@ -2,6 +2,7 @@ package com.cisne.controller;
 
 import com.cisne.payload.branch.BranchRequest;
 import com.cisne.payload.branch.BranchResponse;
+import com.cisne.payload.branchProduct.BranchProductResponse;
 import com.cisne.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,11 @@ public class BranchController {
     @Autowired
     public BranchController(BranchService branchService) {
         this.branchService = branchService;
+    }
+
+    @GetMapping("/branch/{id}")
+    public BranchResponse getBranchById(@PathVariable("id") Long id) {
+        return branchService.getBranchById(id);
     }
 
     @PostMapping("/branch")

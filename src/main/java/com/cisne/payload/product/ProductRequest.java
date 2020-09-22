@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class ProductRequest {
 
+    private Long id;
+
     @NotNull
     @NotBlank
     private String name;

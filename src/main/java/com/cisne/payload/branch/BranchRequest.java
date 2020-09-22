@@ -12,7 +12,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class BranchRequest {
 
+    private Long id;
+
     @NotNull
-    @NotBlank(message = "The name cannot be null")
+    @NotBlank
+    private String code;
+
+    @NotNull
+    @NotBlank
     private String name;
 }

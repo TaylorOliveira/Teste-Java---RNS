@@ -13,6 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class BranchProductRequest {
 
+    private Long id;
+
     @NotNull
     @NotBlank
     private Long quantity;

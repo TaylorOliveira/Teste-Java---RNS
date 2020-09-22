@@ -1,6 +1,5 @@
 package com.cisne.service;
 
-import com.cisne.model.Branch;
 import com.cisne.model.Product;
 import com.cisne.payload.product.ProductRequest;
 import com.cisne.payload.product.ProductResponse;
@@ -21,6 +20,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    public ProductResponse getProductById(Long id){
+        Product product = productRepository.getOne(id);
+        return new ProductResponse(product);
+    }
+
     public ProductResponse createProduct(ProductRequest productRequest){
         Product product = new Product();
         product.setName(productRequest.getName());
@@ -30,8 +34,7 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id){
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException());
+        Product product = productRepository.getOne(id);
         productRepository.delete(product);
     }
 
