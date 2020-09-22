@@ -42,7 +42,8 @@ public class ProductService {
         List<Product> listProducts = productRepository.findAll();
         List<ProductResponse> listProductsResponse = new ArrayList<>();
         for(Product product :  listProducts){
-            listProductsResponse.add(new ProductResponse(product.getId(), product.getName(), product.getStockQuantity()));
+            listProductsResponse.add(new ProductResponse(product.getId(), product.getName(),
+                    product.getCode(), product.getStockQuantity()));
         }
         return listProductsResponse;
     }

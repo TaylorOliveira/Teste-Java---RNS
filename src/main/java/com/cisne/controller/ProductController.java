@@ -3,6 +3,7 @@ package com.cisne.controller;
 import com.cisne.payload.branch.BranchResponse;
 import com.cisne.payload.product.ProductRequest;
 import com.cisne.payload.product.ProductResponse;
+import com.cisne.repository.ProductRepository;
 import com.cisne.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,12 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ProductRepository productRepository) {
         this.productService = productService;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/product/{id}")
@@ -30,6 +33,9 @@ public class ProductController {
 
     @PostMapping("/product")
     public ResponseEntity<?> createProduct(@Validated @RequestBody ProductRequest productRequest) {
+        if(productRepository.existsByCode(productRequest.getCode())){
+            return ResponseEntity.badRequest().body("Code already registered");
+        }
         ProductResponse productResponse = productService.createProduct(productRequest);
         return ResponseEntity.ok().body(productResponse);
     }

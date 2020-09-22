@@ -12,11 +12,14 @@ public class ProductResponse {
 
     private String name;
 
+    private String code;
+
     private Long stockQuantity;
 
     public ProductResponse(Product product) {
         setId(product.getId());
         setName(product.getName());
+        setCode(product.getCode());
         setStockQuantity(product.getStockQuantity());
     }
 }

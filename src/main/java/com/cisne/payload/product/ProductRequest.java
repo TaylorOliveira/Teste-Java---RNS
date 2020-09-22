@@ -20,5 +20,9 @@ public class ProductRequest {
 
     @NotNull
     @NotBlank
+    private String code;
+
+    @NotNull
+    @NotBlank
     private Long stockQuantity;
 }

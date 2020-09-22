@@ -24,6 +24,9 @@ public class Product {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "CODE")
+    private String code;
+
     @Column(name = "STOCK_QUANTITY")
     private Long stockQuantity;
 }
