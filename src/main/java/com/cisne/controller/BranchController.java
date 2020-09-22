@@ -2,6 +2,8 @@ package com.cisne.controller;
 
 import com.cisne.payload.branch.BranchRequest;
 import com.cisne.payload.branch.BranchResponse;
+import com.cisne.payload.branchProduct.BranchProductRequest;
+import com.cisne.payload.branchProduct.BranchProductResponse;
 import com.cisne.repository.BranchRepository;
 import com.cisne.service.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
@@ -35,6 +39,15 @@ public class BranchController {
             return ResponseEntity.badRequest().body("Code already registered");
         }
         BranchResponse branchResponse = branchService.createBranch(branchRequest);
+        return ResponseEntity.ok().body(branchResponse);
+    }
+
+    @PutMapping("/branch")
+    public ResponseEntity<?> updateBranch(@Valid @RequestBody BranchRequest branchRequest){
+        BranchResponse branchResponse = branchService.updateBranch(branchRequest);
+        if(Objects.isNull(branchResponse)){
+            return ResponseEntity.badRequest().body("Error update");
+        }
         return ResponseEntity.ok().body(branchResponse);
     }
 

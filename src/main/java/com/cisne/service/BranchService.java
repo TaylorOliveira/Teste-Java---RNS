@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class BranchService {
@@ -29,6 +30,18 @@ public class BranchService {
         Branch branch = new Branch();
         branch.setName(branchRequest.getName());
         branch.setCode(branchRequest.getCode());
+        branchRepository.save(branch);
+        return new BranchResponse(branch);
+    }
+
+    public BranchResponse updateBranch(BranchRequest branchRequest){
+        if(Objects.isNull(branchRequest.getId())){
+            return null;
+        }
+
+        Branch branch = branchRepository.getOne(branchRequest.getId());
+        branch.setCode(branchRequest.getCode());
+        branch.setName(branchRequest.getName());
         branchRepository.save(branch);
         return new BranchResponse(branch);
     }

@@ -1,5 +1,6 @@
 package com.cisne.controller;
 
+import com.cisne.payload.branch.BranchRequest;
 import com.cisne.payload.branch.BranchResponse;
 import com.cisne.payload.product.ProductRequest;
 import com.cisne.payload.product.ProductResponse;
@@ -10,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
@@ -30,13 +33,21 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
-
     @PostMapping("/product")
     public ResponseEntity<?> createProduct(@Validated @RequestBody ProductRequest productRequest) {
         if(productRepository.existsByCode(productRequest.getCode())){
             return ResponseEntity.badRequest().body("Code already registered");
         }
         ProductResponse productResponse = productService.createProduct(productRequest);
+        return ResponseEntity.ok().body(productResponse);
+    }
+
+    @PutMapping("/product")
+    public ResponseEntity<?> updateProduct(@Valid @RequestBody ProductRequest productRequest){
+        ProductResponse productResponse = productService.updateProduct(productRequest);
+        if(Objects.isNull(productResponse)){
+            return ResponseEntity.badRequest().body("Error update");
+        }
         return ResponseEntity.ok().body(productResponse);
     }
 
