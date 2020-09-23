@@ -36,8 +36,7 @@ public class ProductController {
         if(productRepository.existsByCode(productRequest.getCode())){
             return ResponseEntity.badRequest().body("Code already registered");
         }
-        ProductResponse productResponse = productService.createProduct(productRequest);
-        return ResponseEntity.ok().body(productResponse);
+        return ResponseEntity.ok().body(productService.createProduct(productRequest));
     }
 
     @PutMapping("/product")

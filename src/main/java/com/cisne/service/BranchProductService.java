@@ -72,35 +72,31 @@ public class BranchProductService {
 
         BranchProduct branchProduct = branchProductRespository.getOne(branchProductRequest.getId());
 
-        if(Objects.nonNull(branchProduct)){
+        // Get product before save and product contained in request
+        Product productBefore = branchProduct.getProduct();
+        Product productAfter = productRepository.getOne(branchProductRequest.getProductId());
 
-            // Get product before save and product contained in request
-            Product productBefore = branchProduct.getProduct();
-            Product productAfter = productRepository.getOne(branchProductRequest.getProductId());
+        Branch branch = branchRepository.getOne(branchProductRequest.getBranchId());
 
-            Branch branch = branchRepository.getOne(branchProductRequest.getBranchId());
+        // Update stock quantity product before
+        productBefore.setStockQuantity(productBefore.getStockQuantity() + branchProduct.getQuantity());
+        // Update stock quantity product contained in request
+        productAfter.setStockQuantity(productAfter.getStockQuantity() - branchProductRequest.getQuantity());
 
-            // Update stock quantity product before
-            productBefore.setStockQuantity(productBefore.getStockQuantity() + branchProduct.getQuantity());
-            // Update stock quantity product contained in request
-            productAfter.setStockQuantity(productAfter.getStockQuantity() - branchProductRequest.getQuantity());
+        branchProduct.setQuantity(branchProductRequest.getQuantity());
 
-            branchProduct.setQuantity(branchProductRequest.getQuantity());
+        // Set entity product and branch in branchProduct
+        branchProduct.setProduct(productAfter);
+        branchProduct.setBranch(branch);
 
-            // Set entity product and branch in branchProduct
-            branchProduct.setProduct(productAfter);
-            branchProduct.setBranch(branch);
+        // Set transfer date
+        branchProduct.setTransferDate(branchProductRequest.getTransferDate());
 
-            // Set transfer date
-            branchProduct.setTransferDate(branchProductRequest.getTransferDate());
+        productRepository.save(productBefore);
+        productRepository.save(productAfter);
+        branchProductRespository.save(branchProduct);
 
-            productRepository.save(productBefore);
-            productRepository.save(productAfter);
-            branchProductRespository.save(branchProduct);
-        }else{
-            return null;
-        }
-        return new BranchProductResponse( branchProduct);
+        return new BranchProductResponse(branchProduct);
     }
 
     public void deleteBranchProduct(Long id){

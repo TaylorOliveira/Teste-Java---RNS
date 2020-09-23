@@ -36,8 +36,7 @@ public class BranchController {
         if(branchRepository.existsByCode(branchRequest.getCode())){
             return ResponseEntity.badRequest().body("Code already registered");
         }
-        BranchResponse branchResponse = branchService.createBranch(branchRequest);
-        return ResponseEntity.ok().body(branchResponse);
+        return ResponseEntity.ok().body(branchService.createBranch(branchRequest));
     }
 
     @PutMapping("/branch")
