@@ -40,7 +40,8 @@ public class BranchProductController {
 
     @PutMapping("/branchProduct")
     public ResponseEntity<?> updateBranchProduct(@Valid @RequestBody BranchProductRequest branchProductRequest){
-        return ResponseEntity.ok().body(branchProductService.updateBranchProduct(branchProductRequest));
+        branchProductService.updateBranchProduct(branchProductRequest);
+        return Utils.created(true, "Transfer successfully created.");
     }
 
     @DeleteMapping("/branchProduct/{id}")
