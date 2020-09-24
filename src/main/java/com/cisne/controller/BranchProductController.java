@@ -3,6 +3,7 @@ package com.cisne.controller;
 import com.cisne.payload.branchProduct.BranchProductRequest;
 import com.cisne.payload.branchProduct.BranchProductResponse;
 import com.cisne.service.BranchProductService;
+import com.cisne.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,24 +33,20 @@ public class BranchProductController {
     public ResponseEntity<?> createBranchProduct(@Validated @RequestBody BranchProductRequest branchProductRequest) {
         BranchProductResponse branchProductResponse = branchProductService.createBranchProduct(branchProductRequest);
         if(Objects.isNull(branchProductResponse)){
-            return ResponseEntity.badRequest().body("Error saving");
+            return Utils.badRequest(false, "Error saving!");
         }
-        return ResponseEntity.ok().body(branchProductResponse);
+        return Utils.created(true, "Transfer successfully created.");
     }
 
     @PutMapping("/branchProduct")
     public ResponseEntity<?> updateBranchProduct(@Valid @RequestBody BranchProductRequest branchProductRequest){
-        BranchProductResponse branchProductResponse = branchProductService.updateBranchProduct(branchProductRequest);
-        if(Objects.isNull(branchProductResponse)){
-            return ResponseEntity.badRequest().body("Error update");
-        }
-        return ResponseEntity.ok().body(branchProductResponse);
+        return ResponseEntity.ok().body(branchProductService.updateBranchProduct(branchProductRequest));
     }
 
     @DeleteMapping("/branchProduct/{id}")
     public ResponseEntity<?> deleteBranchProduct(@PathVariable("id") Long id) {
         branchProductService.deleteBranchProduct(id);
-        return ResponseEntity.ok().body("Deleted on success");
+        return Utils.deleted(true, "Transfer deleted on success.");
     }
 
     @GetMapping("/listBranchProducts")

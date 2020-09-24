@@ -4,9 +4,9 @@ import com.cisne.payload.branch.BranchRequest;
 import com.cisne.payload.branch.BranchResponse;
 import com.cisne.repository.BranchRepository;
 import com.cisne.service.BranchService;
+import com.cisne.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,26 +32,27 @@ public class BranchController {
     }
 
     @PostMapping("/branch")
-    public ResponseEntity<?> createBranch(@Validated @RequestBody BranchRequest branchRequest) {
+    public ResponseEntity<?> createBranch(@Valid @RequestBody BranchRequest branchRequest) {
         if(branchRepository.existsByCode(branchRequest.getCode())){
-            return ResponseEntity.badRequest().body("Code already registered");
+            return Utils.badRequest(false, "Code already registered!");
         }
-        return ResponseEntity.ok().body(branchService.createBranch(branchRequest));
+        branchService.createBranch(branchRequest);
+        return Utils.created(true, "Branch successfully created.");
     }
 
     @PutMapping("/branch")
     public ResponseEntity<?> updateBranch(@Valid @RequestBody BranchRequest branchRequest){
         BranchResponse branchResponse = branchService.updateBranch(branchRequest);
         if(Objects.isNull(branchResponse)){
-            return ResponseEntity.badRequest().body("Error update");
+            return Utils.badRequest(false, "Error update!");
         }
-        return ResponseEntity.ok().body(branchResponse);
+        return Utils.created(true, "Branch updated successfully.");
     }
 
     @DeleteMapping("/branch/{id}")
     public ResponseEntity<?> deleteBranch(@PathVariable("id") Long id) {
         branchService.deleteBranch(id);
-        return ResponseEntity.ok().body("Deleted on success");
+        return Utils.deleted(true, "Branch deleted on success.");
     }
 
     @GetMapping("/listBranches")

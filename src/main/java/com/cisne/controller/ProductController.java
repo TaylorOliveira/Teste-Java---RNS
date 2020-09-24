@@ -4,6 +4,7 @@ import com.cisne.payload.product.ProductRequest;
 import com.cisne.payload.product.ProductResponse;
 import com.cisne.repository.ProductRepository;
 import com.cisne.service.ProductService;
+import com.cisne.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -34,24 +35,25 @@ public class ProductController {
     @PostMapping("/product")
     public ResponseEntity<?> createProduct(@Validated @RequestBody ProductRequest productRequest) {
         if(productRepository.existsByCode(productRequest.getCode())){
-            return ResponseEntity.badRequest().body("Code already registered");
+            return Utils.badRequest(false, "Code already registered!");
         }
-        return ResponseEntity.ok().body(productService.createProduct(productRequest));
+        productService.createProduct(productRequest);
+        return Utils.created(true, "Product successfully created.");
     }
 
     @PutMapping("/product")
     public ResponseEntity<?> updateProduct(@Valid @RequestBody ProductRequest productRequest){
         ProductResponse productResponse = productService.updateProduct(productRequest);
         if(Objects.isNull(productResponse)){
-            return ResponseEntity.badRequest().body("Error update");
+            return Utils.badRequest(false, "Error update!");
         }
-        return ResponseEntity.ok().body(productResponse);
+        return Utils.created(true, "Product successfully created.");
     }
 
     @DeleteMapping("/product/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
-        return ResponseEntity.ok().body("Deleted on success");
+        return Utils.deleted(true, "Product deleted on success.");
     }
 
     @GetMapping("/listProducts")

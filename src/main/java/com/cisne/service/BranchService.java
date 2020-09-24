@@ -26,12 +26,11 @@ public class BranchService {
         return new BranchResponse(branch);
     }
 
-    public BranchResponse createBranch(BranchRequest branchRequest){
+    public void createBranch(BranchRequest branchRequest){
         Branch branch = new Branch();
         branch.setName(branchRequest.getName());
         branch.setCode(branchRequest.getCode());
         branchRepository.save(branch);
-        return new BranchResponse(branch);
     }
 
     public BranchResponse updateBranch(BranchRequest branchRequest){

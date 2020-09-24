@@ -26,13 +26,12 @@ public class ProductService {
         return new ProductResponse(product);
     }
 
-    public ProductResponse createProduct(ProductRequest productRequest){
+    public void createProduct(ProductRequest productRequest){
         Product product = new Product();
         product.setName(productRequest.getName());
         product.setCode(productRequest.getCode());
         product.setStockQuantity(productRequest.getStockQuantity());
         productRepository.save(product);
-        return new ProductResponse(product);
     }
 
     public ProductResponse updateProduct(ProductRequest productRequest){
