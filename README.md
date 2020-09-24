@@ -25,16 +25,16 @@ Você deverá criar uma feature de controle de estoque.
 ### Create Product
 post: http://localhost:8080/api/product
 {
-    "name":"PICANHA",
+    "name":"PRODUTO A",
     "stockQuantity": 10,
-    "code": 654321 
+    "code": 5162554-7 
 }
 
 ### Create Branch
 post: http://localhost:8080/api/branch
 {
-    "name":"QUARTETO",
-    "code":"13512651"
+    "name":"EMPRESA A",
+    "code":"8645154-8"
 }
 
 ### Create BranchProduct
