@@ -1,11 +1,11 @@
 ### Feature Controle de Estoque
 
-Você deverá criar uma feature de controle de estoque. 
-- A entidade que será responsável pelo controle de estoque deve relacionar produtos com filial e indicar a quantidade de itens disponível para esse produto.
-- Lembre-se que de construir toda a estrutura necessária para que essa feature possa ser consumida por via rest.
-- Deve existir um endpoint que permita a transferência de um produto de uma filial para outra.
-- Todos os endpoints dessa API devem estar funcionando adequadamente.
-- Você tem total liberdade para fazer qualquer alteração no projeto que achar pertinente, desde que ele continue atendendo aos objetivos principais da API.
+You must create an inventory control feature.
+- The entity that will be responsible for stock control must list products with a branch and indicate the quantity of items available for that product.
+- Remember that to build all the necessary structure so that this feature can be consumed via rest.
+- There must be an endpoint that allows the transfer of a product from one branch to another.
+- All endpoints of this API must be working properly.
+- You have complete freedom to make any changes to the project that you think are relevant, as long as it continues to meet the main objectives of the API.
 
 ### Create Product
 ```
