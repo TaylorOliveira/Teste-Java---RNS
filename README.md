@@ -8,21 +8,24 @@ Você deverá criar uma feature de controle de estoque.
 - Você tem total liberdade para fazer qualquer alteração no projeto que achar pertinente, desde que ele continue atendendo aos objetivos principais da API.
 
 ### Create Product
+```
 post: http://localhost:8080/api/product
 {
     "name":"PRODUTO A",
     "stockQuantity": 10,
     "code": 5162554-7 
 }
-
+```
 ### Create Branch
+```
 post: http://localhost:8080/api/branch
 {
     "name":"EMPRESA A",
     "code":"8645154-8"
 }
-
+```
 ### Create BranchProduct
+```
 post: http://localhost:8080/api/branchProduct
 {
     "quantity": 10, 
@@ -30,3 +33,4 @@ post: http://localhost:8080/api/branchProduct
     "productId": 1,
     "transferDate":"2020-05-10"
 }
+```
