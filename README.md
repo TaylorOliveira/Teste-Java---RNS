@@ -1,13 +1,34 @@
-### Feature Controle de Estoque
+# Stock Manage
 
-You must create an inventory control feature.
-- The entity that will be responsible for stock control must list products with a branch and indicate the quantity of items available for that product.
-- Remember that to build all the necessary structure so that this feature can be consumed via rest.
-- There must be an endpoint that allows the transfer of a product from one branch to another.
-- All endpoints of this API must be working properly.
-- You have complete freedom to make any changes to the project that you think are relevant, as long as it continues to meet the main objectives of the API.
+Simple stock manage software
 
-### Create Product
+  - Register Branch
+  - Register Product
+  - Listing Branchs
+  - Listing Products
+  - Transfer Product from Branch
+ 
+### Installation
+ 
+With Java e Maven configurado execute
+```
+mvn install
+```
+
+### Tech
+
+Technologies used
+
+* [Java] - Version 8
+
+License
+----
+
+Software free
+
+
+
+#### Create Product
 ```
 post: http://localhost:8080/api/product
 {
@@ -16,7 +37,7 @@ post: http://localhost:8080/api/product
     "code": 5162554-7 
 }
 ```
-### Create Branch
+#### Create Branch
 ```
 post: http://localhost:8080/api/branch
 {
@@ -24,7 +45,7 @@ post: http://localhost:8080/api/branch
     "code":"8645154-8"
 }
 ```
-### Create BranchProduct
+#### Create BranchProduct
 ```
 post: http://localhost:8080/api/branchProduct
 {
