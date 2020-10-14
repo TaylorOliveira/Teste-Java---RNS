@@ -7,27 +7,7 @@ Simple stock manage software
   - Listing Branchs
   - Listing Products
   - Transfer Product from Branch
- 
-### Installation
- 
-With Java e Maven configurado execute
-```
-mvn install
-```
-
-### Tech
-
-Technologies used
-
-* [Java] - Version 8
-
-License
-----
-
-Software free
-
-
-
+  
 #### Create Product
 ```
 post: http://localhost:8080/api/product
@@ -55,3 +35,21 @@ post: http://localhost:8080/api/branchProduct
     "transferDate":"2020-05-10"
 }
 ```
+ 
+### Installation
+ 
+With Java e Maven configurado execute
+```
+mvn install
+```
+
+### Tech
+
+Technologies used
+
+* [Java] - Version 8
+
+License
+----
+
+Software free
