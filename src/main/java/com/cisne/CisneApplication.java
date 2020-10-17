@@ -9,5 +9,4 @@ public class CisneApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CisneApplication.class, args);
 	}
-
 }
